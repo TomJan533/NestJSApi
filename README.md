@@ -26,3 +26,10 @@ Nest JS API that handles Star Wars data from https://swapi.dev
 - **Docker**: Containerization platform to ensure a consistent development environment.
 - **Jest**: Testing framework
 - **Swagger**: API documentation
+
+
+## Running locally with docker:
+
+```bash
+$ docker compose up
+```

@@ -1,0 +1,14 @@
+services:
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3002:3000"
+    command: npm run start:dev
+    networks:
+      - star-wars-nest-network
+
+networks:
+  star-wars-nest-network:
+    driver: bridge
