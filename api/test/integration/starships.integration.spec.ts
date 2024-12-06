@@ -19,10 +19,34 @@ describe('StarshipsModule (integration)', () => {
     await app.close();
   });
 
-  it('/starships (GET)', () => {
+  it('should return Starships data via GraphQL', async () => {
+    const query = `
+      query {
+        getStarships {
+          id
+          name
+        }
+      }
+    `;
+
+    const expectedResponse = {
+      data: {
+        getStarships: [
+          { id: '1', name: 'A' },
+          {
+            id: '2',
+            name: 'B',
+          },
+        ],
+      },
+    };
+
     return request(app.getHttpServer())
-      .get('/starships')
+      .post('/graphql')
+      .send({ query })
       .expect(200)
-      .expect('Hello Starships!');
+      .expect((res) => {
+        expect(res.body).toEqual(expectedResponse);
+      });
   });
 });

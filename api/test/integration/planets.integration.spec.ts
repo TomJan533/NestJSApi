@@ -19,10 +19,34 @@ describe('PlanetsModule (integration)', () => {
     await app.close();
   });
 
-  it('/planets (GET)', () => {
+  it('should return planets data via GraphQL', async () => {
+    const query = `
+      query {
+        getPlanets {
+          id
+          name
+        }
+      }
+    `;
+
+    const expectedResponse = {
+      data: {
+        getPlanets: [
+          { id: '1', name: 'A' },
+          {
+            id: '2',
+            name: 'B',
+          },
+        ],
+      },
+    };
+
     return request(app.getHttpServer())
-      .get('/planets')
+      .post('/graphql')
+      .send({ query })
       .expect(200)
-      .expect('Hello Planets!');
+      .expect((res) => {
+        expect(res.body).toEqual(expectedResponse);
+      });
   });
 });

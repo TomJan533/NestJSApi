@@ -8,6 +8,30 @@ type Film {
   director: String!
 }
 
+type Species {
+  id: String!
+  name: String!
+}
+
+type Vehicle {
+  id: String!
+  name: String!
+}
+
+type Starship {
+  id: String!
+  name: String!
+}
+
+type Planet {
+  id: String!
+  name: String!
+}
+
 type Query {
   getFilms: [Film!]!
+  getSpecies: [Species!]!
+  getVehicles: [Vehicle!]!
+  getStarships: [Starship!]!
+  getPlanets: [Planet!]!
 }

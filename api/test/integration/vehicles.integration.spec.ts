@@ -19,10 +19,34 @@ describe('VehiclesModule (integration)', () => {
     await app.close();
   });
 
-  it('/vehicles (GET)', () => {
+  it('should return Vehicles data via GraphQL', async () => {
+    const query = `
+      query {
+        getVehicles {
+          id
+          name
+        }
+      }
+    `;
+
+    const expectedResponse = {
+      data: {
+        getVehicles: [
+          { id: '1', name: 'A' },
+          {
+            id: '2',
+            name: 'B',
+          },
+        ],
+      },
+    };
+
     return request(app.getHttpServer())
-      .get('/vehicles')
+      .post('/graphql')
+      .send({ query })
       .expect(200)
-      .expect('Hello Vehicles!');
+      .expect((res) => {
+        expect(res.body).toEqual(expectedResponse);
+      });
   });
 });

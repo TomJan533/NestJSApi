@@ -19,10 +19,34 @@ describe('SpeciesModule (integration)', () => {
     await app.close();
   });
 
-  it('/species (GET)', () => {
+  it('should return species data via GraphQL', async () => {
+    const query = `
+      query {
+        getSpecies {
+          id
+          name
+        }
+      }
+    `;
+
+    const expectedResponse = {
+      data: {
+        getSpecies: [
+          { id: '1', name: 'A' },
+          {
+            id: '2',
+            name: 'B',
+          },
+        ],
+      },
+    };
+
     return request(app.getHttpServer())
-      .get('/species')
+      .post('/graphql')
+      .send({ query })
       .expect(200)
-      .expect('Hello Species!');
+      .expect((res) => {
+        expect(res.body).toEqual(expectedResponse);
+      });
   });
 });
