@@ -12,19 +12,33 @@ Nest JS API that handles Star Wars data from https://swapi.dev
 ├── .github # CI workflow
 ├── api
 │ ├── src # Source code for the NestJS backend
-│ ├── tests
-│ └── Dockerfile # Nest JS Api docker definition
-├── frontend
-├── docker-compose.yml
-├── .env
+│ │ ├── features # Feature-specific modules (e.g., films, species, vehicles)
+│ │ ├── shared # Shared modules, services, or utilities
+│ │ ├── main.ts # Application entry point
+│ │ └── app.module.ts # Root application module
+│ ├── test # Tests for unit, integration, and e2e
+│ │ ├── unit # Unit tests
+│ │ │ ├── jest.config.json # Jest configuration for unit tests
+│ │ │ └── feature-specific test files
+│ │ ├── integration # Integration tests
+│ │ │ ├── jest.config.json # Jest configuration for integration tests
+│ │ │ └── module-specific test files
+│ │ ├── e2e # End-to-end tests
+│ │ │ ├── jest.config.json # Jest configuration for e2e tests
+│ │ │ └── e2e-specific test files
+│ └── Dockerfile # NestJS API Docker definition
+├── docker-compose.yml # Docker Compose configuration
+├── schema.gql # Auto-generated GraphQL schema
 └── README.md
 ```
 
 ## Tools and Technologies Used
 
 - **NestJS**: Backend framework for building scalable server-side applications
+- **GraphQL**: API query language for efficient data fetching and flexible client-server interactions
 - **Docker**: Containerization platform to ensure a consistent development environment.
 - **Jest**: Testing framework
+- **Github Actions**: Running tests on github
 - **Swagger**: API documentation
 
 
