@@ -1,4 +1,4 @@
-name: CI - Unit and Integration Tests
+name: CI - Unit, Integration and End-to-End Tests
 
 on:
   push:
@@ -28,5 +28,13 @@ jobs:
         working-directory: ./api
 
       - name: Run Unit Tests
-        run: npm run test
+        run: npm run test:unit
+        working-directory: ./api
+
+      - name: Run Integration Tests
+        run: npm run test:integration
+        working-directory: ./api
+
+      - name: Run End-to-End Tests
+        run: npm run test:e2e
         working-directory: ./api
