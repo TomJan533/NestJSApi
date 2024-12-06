@@ -1,0 +1,13 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Film {
+  id: String!
+  title: String!
+  director: String!
+}
+
+type Query {
+  getFilms: [Film!]!
+}

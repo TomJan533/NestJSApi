@@ -6,6 +6,7 @@ import { SpeciesModule } from './species/species.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { StarshipsModule } from './starships/starships.module';
 import { PlanetsModule } from './planets/planets.module';
+import { GraphqlConfigModule } from './graphql/graphql.module';
 
 @Module({
   controllers: [AppController],
@@ -16,6 +17,7 @@ import { PlanetsModule } from './planets/planets.module';
     VehiclesModule,
     StarshipsModule,
     PlanetsModule,
+    GraphqlConfigModule,
   ],
 })
 export class AppModule {}

@@ -19,10 +19,36 @@ describe('FilmsModule (integration)', () => {
     await app.close();
   });
 
-  it('/films (GET)', () => {
+  it('should return films data via GraphQL', async () => {
+    const query = `
+      query {
+        getFilms {
+          id
+          title
+          director
+        }
+      }
+    `;
+
+    const expectedResponse = {
+      data: {
+        getFilms: [
+          { id: '1', title: 'A New Hope', director: 'George Lucas' },
+          {
+            id: '2',
+            title: 'The Empire Strikes Back',
+            director: 'Irvin Kershner',
+          },
+        ],
+      },
+    };
+
     return request(app.getHttpServer())
-      .get('/films')
+      .post('/graphql')
+      .send({ query })
       .expect(200)
-      .expect('Hello Films!');
+      .expect((res) => {
+        expect(res.body).toEqual(expectedResponse);
+      });
   });
 });
