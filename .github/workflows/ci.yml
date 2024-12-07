@@ -1,4 +1,4 @@
-name: CI - Unit, Integration and End-to-End Tests
+name: CI - Unit, Integration, and End-to-End Tests
 
 on:
   push:
@@ -13,6 +13,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -22,27 +32,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Set up Docker Compose
-        run: docker-compose up -d --build
-        working-directory: .
-
-      - name: Wait for Redis to be ready
-        run: |
-          for i in {1..10}; do
-            if docker exec redis-star-wars redis-cli ping | grep -q PONG; then
-              echo "Redis is ready!"
-              exit 0
-            fi
-            echo "Waiting for Redis to be ready..."
-            sleep 5
-          done
-          echo "Redis did not become ready in time!" && exit 1
 
       - name: Install dependencies
         run: npm install
@@ -54,19 +43,14 @@ jobs:
 
       - name: Run Integration Tests
         env:
-          REDIS_HOST: redis
+          REDIS_HOST: localhost
           REDIS_PORT: 6379
         run: npm run test:integration
         working-directory: ./api
 
       - name: Run End-to-End Tests
         env:
-          REDIS_HOST: redis
+          REDIS_HOST: localhost
           REDIS_PORT: 6379
         run: npm run test:e2e
         working-directory: ./api
-
-      - name: Tear down Docker Compose
-        if: always()
-        run: docker-compose down
-        working-directory: .
