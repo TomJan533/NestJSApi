@@ -36,6 +36,7 @@ Nest JS API that handles Star Wars data from https://swapi.dev
 
 - **NestJS**: Backend framework for building scalable server-side applications
 - **GraphQL**: API query language for efficient data fetching and flexible client-server interactions
+- **Redis**: Caching layer used for fast data access, session storage, and reducing database load.
 - **Docker**: Containerization platform to ensure a consistent development environment.
 - **Jest**: Testing framework
 - **Github Actions**: Running tests on github
