@@ -6,6 +6,14 @@ type Film {
   id: String!
   title: String!
   director: String!
+  producer: String!
+  releaseDate: String!
+  openingCrawl: String!
+  characters: [String!]!
+  planets: [String!]!
+  starships: [String!]!
+  vehicles: [String!]!
+  species: [String!]!
 }
 
 type Species {
@@ -29,9 +37,16 @@ type Planet {
 }
 
 type Query {
-  getFilms: [Film!]!
+  getFilms(filter: FilterInput, page: Float): [Film!]!
   getSpecies: [Species!]!
   getVehicles: [Vehicle!]!
   getStarships: [Starship!]!
   getPlanets: [Planet!]!
+}
+
+input FilterInput {
+  title: String
+  director: String
+  producer: String
+  releaseDate: String
 }

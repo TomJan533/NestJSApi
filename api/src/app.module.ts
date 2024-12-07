@@ -7,6 +7,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
 import { StarshipsModule } from './starships/starships.module';
 import { PlanetsModule } from './planets/planets.module';
 import { GraphqlConfigModule } from './graphql/graphql.module';
+import { CacheModule } from './cache/cache.module';
 
 @Module({
   controllers: [AppController],
@@ -18,6 +19,7 @@ import { GraphqlConfigModule } from './graphql/graphql.module';
     StarshipsModule,
     PlanetsModule,
     GraphqlConfigModule,
+    CacheModule,
   ],
 })
 export class AppModule {}

@@ -27,6 +27,18 @@ jobs:
         run: npm install
         working-directory: ./api
 
+      - name: Set up Docker Compose
+        run: docker-compose up -d
+        working-directory: .
+        
+      - name: Wait for Redis to be ready
+        run: |
+          until docker exec redis-star-wars redis-cli ping | grep -q PONG; do
+            echo "Waiting for Redis to be ready..."
+            sleep 2
+          done
+          echo "Redis is ready!"
+
       - name: Run Unit Tests
         run: npm run test:unit
         working-directory: ./api
@@ -38,3 +50,8 @@ jobs:
       - name: Run End-to-End Tests
         run: npm run test:e2e
         working-directory: ./api
+
+      - name: Tear down Docker Compose
+        if: always()
+        run: docker-compose down
+        working-directory: .

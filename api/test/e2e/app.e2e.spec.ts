@@ -1,10 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from '../../src/app.module';
 
 describe('AppController (integration)', () => {
   let app: INestApplication;
+  let originalConsoleLog: typeof console.log;
+
+  beforeAll(async () => {
+    originalConsoleLog = console.log;
+    console.log = jest.fn();
+  });
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -13,6 +19,11 @@ describe('AppController (integration)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
+    console.log = originalConsoleLog;
   });
 
   it('/ (GET)', () => {

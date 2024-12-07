@@ -1,11 +1,21 @@
 services:
-
   api:
     build:
       context: ./api
     ports:
       - "3002:3000"
     command: npm run start:dev
+    networks:
+      - star-wars-nest-network
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  redis:
+    image: redis:alpine
+    container_name: redis-star-wars
+    ports:
+      - "6381:6379"
     networks:
       - star-wars-nest-network
 
