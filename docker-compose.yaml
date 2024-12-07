@@ -18,6 +18,11 @@ services:
       - "6381:6379"
     networks:
       - star-wars-nest-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
 
 networks:
   star-wars-nest-network:
