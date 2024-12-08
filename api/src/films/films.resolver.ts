@@ -3,10 +3,15 @@ import { FilmsService } from './films.service';
 import { Film } from './film.model';
 import { FilterInput } from './films.filter.input';
 import { WordCount } from './word.count.util';
+import { PeopleService } from '../people/people.service';
+import { cleanName } from '../people/people.clean.name.util';
 
 @Resolver(() => Film)
 export class FilmsResolver {
-  constructor(private readonly filmsService: FilmsService) {}
+  constructor(
+    private readonly filmsService: FilmsService,
+    private readonly peopleService: PeopleService,
+  ) {}
 
   @Query(() => [Film])
   async getFilms(
@@ -17,7 +22,7 @@ export class FilmsResolver {
   }
 
   @Query(() => [WordCount])
-  async getFilmsOpeningCrawlWordCounts(): Promise<WordCount[]> {
+  async getFilmsStats(): Promise<WordCount[]> {
     const films = await this.filmsService.getAllFilms();
     const wordCounts = films.flatMap((film) => film.wordCounts);
     const aggregatedCounts: { [word: string]: number } = {};
@@ -25,6 +30,13 @@ export class FilmsResolver {
     wordCounts.forEach(({ word, count }) => {
       aggregatedCounts[word] = (aggregatedCounts[word] || 0) + count;
     });
+
+    const people = await this.peopleService.getAllPeople();
+    const cleanedNames = people.map((person) => cleanName(person.name));
+
+    // TODO: Implement names search, sort
+    // TODO: Implement result merge
+    // TODO: Implement test
 
     return Object.entries(aggregatedCounts).map(([word, count]) => ({
       word,
