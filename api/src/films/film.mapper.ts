@@ -1,4 +1,5 @@
 import { Film } from './film.model';
+import { calculateWordCounts } from './word.count.util';
 
 export const mapFilmData = (rawFilm: any): Film => ({
   id: rawFilm.episode_id.toString(),
@@ -12,4 +13,5 @@ export const mapFilmData = (rawFilm: any): Film => ({
   starships: rawFilm.starships,
   vehicles: rawFilm.vehicles,
   species: rawFilm.species,
+  wordCounts: calculateWordCounts(rawFilm.opening_crawl),
 });

@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { WordCount } from './word.count.util';
 
 @ObjectType()
 export class Film {
@@ -34,4 +35,9 @@ export class Film {
 
   @Field(() => [String])
   species: string[];
+
+  @Field(() => [WordCount], {
+    description: 'Word counts from the opening crawl',
+  })
+  wordCounts: WordCount[];
 }

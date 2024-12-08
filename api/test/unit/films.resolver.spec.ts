@@ -43,6 +43,7 @@ describe('FilmsResolver', () => {
         starships: ['https://swapi.dev/api/starships/2/'],
         vehicles: ['https://swapi.dev/api/vehicles/4/'],
         species: ['https://swapi.dev/api/species/1/'],
+        wordCounts: [],
       },
       {
         id: '2',
@@ -56,6 +57,7 @@ describe('FilmsResolver', () => {
         starships: ['https://swapi.dev/api/starships/3/'],
         vehicles: ['https://swapi.dev/api/vehicles/6/'],
         species: ['https://swapi.dev/api/species/2/'],
+        wordCounts: [],
       },
     ];
 
