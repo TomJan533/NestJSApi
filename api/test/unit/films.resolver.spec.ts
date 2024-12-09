@@ -35,6 +35,7 @@ describe('FilmsResolver', () => {
     const mockFilms: Film[] = [
       {
         id: '1',
+        episodeId: '4',
         title: 'A New Hope',
         director: 'George Lucas',
         producer: 'Gary Kurtz, Rick McCallum',
@@ -49,6 +50,7 @@ describe('FilmsResolver', () => {
       },
       {
         id: '2',
+        episodeId: '5',
         title: 'The Empire Strikes Back',
         director: 'Irvin Kershner',
         producer: 'Gary Kurtz, George Lucas',

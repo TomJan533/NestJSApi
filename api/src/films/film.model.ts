@@ -4,7 +4,10 @@ import { WordCount } from '../common/dto/word-count.dto';
 @ObjectType()
 export class Film {
   @Field()
-  id: string; // Maps to episode_id from the API
+  id: string;
+
+  @Field()
+  episodeId: string;
 
   @Field()
   title: string;

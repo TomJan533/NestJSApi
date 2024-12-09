@@ -4,6 +4,7 @@ import { CacheService } from '../cache/cache.service';
 import { Film } from './film.model';
 import { mapFilmData } from './film.mapper';
 import { FilterInput } from './films.filter.input';
+import { getIdFromUrl } from '../common/utils';
 
 @Injectable()
 export class FilmsService {
@@ -21,9 +22,11 @@ export class FilmsService {
       return cachedData;
     }
 
+    let id: string;
     if (page) {
       const response = await axios.get(`${this.apiUrl}?page=${page}`);
-      const films = response.data.results.map(mapFilmData);
+      id = getIdFromUrl(this.apiUrl);
+      const films = response.data.results.map(mapFilmData, id);
       const filteredFilms = this.applyFilters(films, filter);
 
       await this.cacheService.set(cacheKey, filteredFilms, 86400);
@@ -34,7 +37,8 @@ export class FilmsService {
 
       while (nextUrl) {
         const response = await axios.get(nextUrl);
-        films.push(...response.data.results.map(mapFilmData));
+        id = getIdFromUrl(nextUrl);
+        films.push(...response.data.results.map(mapFilmData, id));
         nextUrl = response.data.next;
       }
 
@@ -53,7 +57,7 @@ export class FilmsService {
     }
 
     const response = await axios.get(`${this.apiUrl}/${id}`);
-    const film = mapFilmData(response.data);
+    const film = mapFilmData(response.data, id);
     await this.cacheService.set(cacheKey, film, 86400);
 
     return film;

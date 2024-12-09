@@ -14,4 +14,11 @@ export class FilmsResolver {
   ): Promise<Film[]> {
     return await this.filmsService.getAllFilms(filter, page);
   }
+
+  @Query(() => Film)
+  async getFilmById(
+    @Args('id', { type: () => String }) id: string,
+  ): Promise<Film> {
+    return await this.filmsService.getFilmById(id);
+  }
 }

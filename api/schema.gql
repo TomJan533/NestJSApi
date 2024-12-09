@@ -9,6 +9,7 @@ type WordCount {
 
 type Film {
   id: String!
+  episodeId: String!
   title: String!
   director: String!
   producer: String!
@@ -51,6 +52,7 @@ type FilmsStats {
 
 type Query {
   getFilms(filter: FilterInput, page: Float): [Film!]!
+  getFilmById(id: String!): Film!
   getSpecies: [Species!]!
   getVehicles: [Vehicle!]!
   getStarships: [Starship!]!

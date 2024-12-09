@@ -1,8 +1,9 @@
 import { Film } from './film.model';
 import { calculateWordCounts } from './word.count.util';
 
-export const mapFilmData = (rawFilm: any): Film => ({
-  id: rawFilm.episode_id.toString(),
+export const mapFilmData = (rawFilm: any, id: string): Film => ({
+  id: id,
+  episodeId: rawFilm.episode_id.toString(),
   title: rawFilm.title,
   director: rawFilm.director,
   producer: rawFilm.producer,
