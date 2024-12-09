@@ -43,6 +43,19 @@ type Starship {
 type Planet {
   id: String!
   name: String!
+  rotation_period: String!
+  orbital_period: String!
+  diameter: String!
+  climate: String!
+  gravity: String!
+  terrain: String!
+  surface_water: String!
+  population: String!
+  residents: [String!]!
+  films: [String!]!
+  created: String!
+  edited: String!
+  url: String!
 }
 
 type FilmsStats {
@@ -56,7 +69,8 @@ type Query {
   getSpecies: [Species!]!
   getVehicles: [Vehicle!]!
   getStarships: [Starship!]!
-  getPlanets: [Planet!]!
+  getPlanets(filter: PlanetsFilterInput, page: Float): [Planet!]!
+  getPlanetById(id: String!): Planet!
   getFilmsStats: FilmsStats!
 }
 
@@ -65,4 +79,12 @@ input FilterInput {
   director: String
   producer: String
   releaseDate: String
+}
+
+input PlanetsFilterInput {
+  name: String
+  climate: String
+  terrain: String
+  population: String
+  gravity: String
 }
