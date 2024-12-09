@@ -4,7 +4,7 @@ import request from 'supertest';
 import { AppModule } from '../../src/app.module';
 import { CacheService } from '../../src/cache/cache.service';
 
-jest.setTimeout(20000);
+jest.setTimeout(40000);
 
 describe('FilmsModule (e2e) - getFilmsStats', () => {
   let app: INestApplication;

@@ -8,6 +8,7 @@ import { StarshipsModule } from './starships/starships.module';
 import { PlanetsModule } from './planets/planets.module';
 import { GraphqlConfigModule } from './graphql/graphql.module';
 import { CacheModule } from './cache/cache.module';
+import { FilmsStatsModule } from './films-stats/films-stats.module';
 
 @Module({
   controllers: [AppController],
@@ -18,6 +19,7 @@ import { CacheModule } from './cache/cache.module';
     VehiclesModule,
     StarshipsModule,
     PlanetsModule,
+    FilmsStatsModule,
     GraphqlConfigModule,
     CacheModule,
   ],

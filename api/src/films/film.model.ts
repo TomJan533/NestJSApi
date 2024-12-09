@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { WordCount } from './word.count.util';
+import { WordCount } from '../common/dto/word-count.dto';
 
 @ObjectType()
 export class Film {

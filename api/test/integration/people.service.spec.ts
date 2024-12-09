@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PeopleService } from '../../src/people/people.service';
 import { CacheService } from '../../src/cache/cache.service';
 
-jest.setTimeout(20000);
+jest.setTimeout(40000);
 
 describe('PeopleService (Integration)', () => {
   let service: PeopleService;

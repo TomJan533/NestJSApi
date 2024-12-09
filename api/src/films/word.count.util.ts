@@ -1,13 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-
-@ObjectType()
-export class WordCount {
-  @Field()
-  word: string;
-
-  @Field()
-  count: number;
-}
+import { WordCount } from '../common/dto/word-count.dto';
 
 /**
  * Calculates the word count for a given text.
