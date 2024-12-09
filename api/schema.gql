@@ -52,6 +52,23 @@ type Vehicle {
 type Starship {
   id: String!
   name: String!
+  model: String!
+  manufacturer: String!
+  cost_in_credits: String!
+  length: String!
+  max_atmosphering_speed: String!
+  crew: String!
+  passengers: String!
+  cargo_capacity: String!
+  consumables: String!
+  hyperdrive_rating: String!
+  MGLT: String!
+  starship_class: String!
+  pilots: [String!]!
+  films: [String!]!
+  created: String!
+  edited: String!
+  url: String!
 }
 
 type Planet {
@@ -83,7 +100,8 @@ type Query {
   getSpecies(filter: SpeciesFilterInput, page: Float): [Species!]!
   getSpeciesById(id: String!): Species!
   getVehicles: [Vehicle!]!
-  getStarships: [Starship!]!
+  getStarships(filter: StarshipsFilterInput, page: Float): [Starship!]!
+  getStarshipById(id: String!): Starship!
   getPlanets(filter: PlanetsFilterInput, page: Float): [Planet!]!
   getPlanetById(id: String!): Planet!
   getFilmsStats: FilmsStats!
@@ -107,6 +125,13 @@ input SpeciesFilterInput {
   average_lifespan: String
   language: String
   homeworld: String
+}
+
+input StarshipsFilterInput {
+  name: String
+  model: String
+  manufacturer: String
+  starship_class: String
 }
 
 input PlanetsFilterInput {
