@@ -3,6 +3,7 @@ import { FilmsResolver } from '../../src/films/films.resolver';
 import { FilmsService } from '../../src/films/films.service';
 import { CacheService } from '../../src/cache/cache.service';
 import { Film } from '../../src/films/film.model';
+import { PeopleService } from '../../src/people/people.service';
 
 describe('FilmsResolver', () => {
   let filmsResolver: FilmsResolver;
@@ -18,6 +19,7 @@ describe('FilmsResolver', () => {
       providers: [
         FilmsResolver,
         FilmsService,
+        PeopleService,
         {
           provide: CacheService,
           useValue: mockCacheService,

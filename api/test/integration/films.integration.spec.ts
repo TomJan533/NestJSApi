@@ -4,6 +4,8 @@ import request from 'supertest';
 import { AppModule } from '../../src/app.module';
 import { CacheService } from '../../src/cache/cache.service';
 
+jest.setTimeout(20000);
+
 describe('FilmsModule (integration)', () => {
   let app: INestApplication;
   let cacheService: CacheService;

@@ -24,6 +24,11 @@ type Film {
   wordCounts: [WordCount!]!
 }
 
+type FilmStats {
+  wordCounts: [WordCount!]!
+  namesWithMaxCount: [String!]!
+}
+
 type Species {
   id: String!
   name: String!
@@ -46,7 +51,7 @@ type Planet {
 
 type Query {
   getFilms(filter: FilterInput, page: Float): [Film!]!
-  getFilmsOpeningCrawlWordCounts: [WordCount!]!
+  getFilmsStats: FilmStats!
   getSpecies: [Species!]!
   getVehicles: [Vehicle!]!
   getStarships: [Starship!]!

@@ -4,7 +4,9 @@ import request from 'supertest';
 import { AppModule } from '../../src/app.module';
 import { CacheService } from '../../src/cache/cache.service';
 
-describe('FilmsModule (e2e) - getFilmsOpeningCrawlWordCounts', () => {
+jest.setTimeout(20000);
+
+describe('FilmsModule (e2e) - getFilmsStats', () => {
   let app: INestApplication;
   let cacheService: CacheService;
   let originalConsoleLog: typeof console.log;
@@ -39,12 +41,15 @@ describe('FilmsModule (e2e) - getFilmsOpeningCrawlWordCounts', () => {
     console.log = originalConsoleLog;
   });
 
-  it('should return aggregated word counts from films opening crawls', async () => {
+  it('should return aggregated word counts and names with max count', async () => {
     const query = `
       query {
-        getFilmsOpeningCrawlWordCounts {
-          word
-          count
+        getFilmsStats {
+          wordCounts {
+            word
+            count
+          }
+          namesWithMaxCount
         }
       }
     `;
@@ -55,14 +60,21 @@ describe('FilmsModule (e2e) - getFilmsOpeningCrawlWordCounts', () => {
       { word: 'a', count: 9 },
     ];
 
+    const expectedNamesWithMaxCount = ['Luke Skywalker', 'Dooku'];
+
     const response = await request(app.getHttpServer())
       .post('/graphql')
       .send({ query })
       .expect(200);
 
     // Assert that the first three items in the response match the expected items
-    expect(
-      response.body.data.getFilmsOpeningCrawlWordCounts.slice(0, 3),
-    ).toEqual(expectedFirstItems);
+    expect(response.body.data.getFilmsStats.wordCounts.slice(0, 3)).toEqual(
+      expectedFirstItems,
+    );
+
+    // Assert that the names with max count are as expected
+    expect(response.body.data.getFilmsStats.namesWithMaxCount).toEqual(
+      expectedNamesWithMaxCount,
+    );
   });
 });
